@@ -1,2 +1,44 @@
 firepit
 =======
+
+Playground for ember
+
+Basic Ember.js flow
+
+
+|---------------|
+| [www.url.com] |
+|               |
+| <html>        |
+|   <script>    |
+|    {{action}} ----------> Router* 
+|   </script>   |             |--> search route for path / action matching
+|   <script>    |                                     |
+|    meat       <----------------|                    |   
+|   </script>   |                |                    |
+| </html>       |                |                    |
+|---------------|                |                    |
+                                 |                    |
+                                 |         |----------------------|
+                                 |         |     connectOutlet    ----------|
+                                 |         |----------------------|         |
+                                 |         |  ^               ^   |         |
+                                 |         |  |- deSerialize -|   |         |
+                                 |         |  |-  serialize  -|   |         |
+                                 |         |----------------------|         | Context val
+                     Content Obj |                                          |
+                                 |                                          |
+                                 |         |----------------------|         |
+                                 |         |      Controller      <---------|
+                                 |         |----------------------|         |
+                                 |         |         View         <---------|
+                                 |         |                      |   Ajax
+                                 |         |      fetch data      <----------> Server-side RestAPI
+                                 |         |           |          |
+                                 |         |           |          |
+       													 |         |           V          | 
+                                 |---------      set property     |
+                                           |----------------------|
+
+
+* Development start point
