@@ -1,0 +1,24 @@
+- Examining the html structure, the first thing to notice is {{outlet}}, two particular notes about this.
+	- "{{" and "}}" is a trigger for ember.js to pick up and execute. This is analogous to "{%" syntax in django templates.
+	- {{outlet}} signifies that the content of this section of the template would be determined during runtime. In this particular case, <body> would be filled in when the ember.js app load. 
+	(Fun fact) - Take out {{outlet}} snippet, reload the page and see what happens.
+
+- (TODO) Next notice a bunch of dependencies javascripts are loaded right below the main <script> sections. The placement of these scripts matter:
+	- They have to be in <body> because 
+	- They have to be loaded below the other <script> sections because
+	(Fun fact) - Move the scripts to <head> or be the first section in <body> and observe the error in Firebug or Chrome Dev Toolkit.
+
+- Next we'll examine the javscript. 
+
+- As described by the ember_flowchart, the dev start point is App.Router section. Reason being that when the page first load, the "url" would be parsed and the appropriate action would be executed. In this particular case:
+	- Our url is /path/to/firepit/project/basic/1/index.html, so this would map to the top level route "/".
+	- After a match is found, ember.js would connect the appropriate controller and view to the outlet
+		- One can achieve this by fetching the top-level controller by executing "router.get('applicationController')". This will return App.ApplicationController, which is defined at line 7. The name is ApplicationController is a name ember.js looks for as its top-level controller. 
+		- Another note is that the first letter of the parameter used in get() is automatically capitalized. i.e. applicationController would return App.ApplicationController
+		- The first parameter in connectOutlet() is the object name. Instead of giving it the full view name, we give it the name minus keywords like "View" or "Controller". 
+		- The second parameter is the "data" that would be fed back to the template that the View object specified by the first parameter is bound to.
+			- I.E. In this scenario, App.Contributor.find() would return an array of all contributors and the data would be fed to the contributors template. 
+			- Make note that App.AllContributorsController is an ArrayController, which means that ember expects an array would be passed to the view. When "controller" (line 10 in index.html) is called, the controller passes its data that was filled by App.Contributor.find(). 
+	(Fun Fact) - Put anything after index.html in the url and you would receive a "Webpage not found". (TODO) Why would we not receive some form of route exception?
+
+- The javascript then completes with App.initilize(), which hooks everything together, fills in necessary content in its default view and awaits user interaction.
