@@ -1,7 +1,7 @@
 firepit
 =======
 
-Playground for ember
+Playpen for learning ember.js
 
 Learn ember by:
 
